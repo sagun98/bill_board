@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style media="screen">
+      html{
+        height: 100%;
+        margin: 0;
+      }
+      body{
+        height: 100%;
+        margin: 0;
+      }
+
+
+      #cardContainer > div{
+        border: 1px solid black;
+      }
+
+      #bacgroundForCard{
+          background-color: black;
+          opacity:0.8;
+          height: 100%; width: 100%;
+      }
+      #cardContainer{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , -50%);
+        padding: 10px;
+        display: inline-block;
+        background-color: white;
+      }
+
+      #imageContainer{
+        width:300px;
+        height: 200px;
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      #photoInput{/*Hiding default input tag style **/
+          height: 1px;
+          width: 1px;
+          position: absolute;
+          overflow: hidden;
+          border: 0;
+      }
+
+
+      #imageContainer > div >  label > span{
+          display: inline-block;
+          width: 300px;
+          height: 200px;
+          line-height: 200px;
+          text-align: center;
+      }
+      #imageContainer > div >  label > span:hover{
+          background-color: grey;
+      }
+
+
+  /**       specificationFieldContainer **/
+      #specificationFieldContainer{/* ul tag that holds item description*/
+          list-style-type: none;
+          padding: 2px;
+          width:300px;
+      }
+      #specificationFieldContainer > li{
+          margin-bottom: 5px;
+          height: 40px;
+          display:flex;
+          border: 1px solid black;
+      }
+
+      #specificationFieldContainer > li >  span{
+        flex: 1;
+        line-height: 40px;
+        border-left: 3px solid red;
+      }
+      #specificationFieldContainer > li > input[type="text"]{
+          flex: 4;
+      }
+      #specificationFieldContainer > li > input[type="submit"]{
+          flex:1;
+          border: none;
+          padding: 0;
+          background-color: green;
+          color: white;
+
+      }
+        
+
+    </style>
+
+    <title></title>
+  </head>
+  <body>
+        <div id="bacgroundForCard">
+        </div>
+
+        <div id="cardContainer">
+            <div id="imageContainer">
+                <div id ="photoUploadContainer">
+                    <label for="photoInput" id ="phInputLabel">
+                        <span>AddPhoto</span>
+                    </label>
+                    <input type="file" name="filename" accept="image/*" id ="photoInput">
+                </div>
+            </div>
+
+            <ul id="specificationFieldContainer">
+                <li>
+                    <span>Xyz</span>
+                    <input type="text" name="" value="">
+                </li>
+
+                <li>
+                     <span>Xyz2</span>
+                    <input type="text" name="" value="">
+                </li>
+
+                <li>
+                    <span>Xyz3</span>
+                    <input type="text" name="" value="">
+                </li>
+
+                <li>
+                    <input type="submit" name="" value="Submit">
+                </li>
+            </ul>
+
+        </div>
+
+        <script type="text/javascript">
+              var photoInput = document.getElementById("photoInput");
+              photoInput.addEventListener("change" , function(){
+                    var file = photoInput.files[0]//files is an array of blobs(files)... file is a blob object
+                    var reader = new FileReader();
+
+                    reader.onload = function(){//asynchronously called
+
+                        var img = new Image(); //image ELement
+                        img.onload = function(){//asynchronously called
+
+                            img.width = 300; img.height = 200;
+                            document.getElementById("photoUploadContainer").style.display = "none";
+                            document.getElementById("imageContainer").appendChild(img);
+                        }
+                        img.src = reader.result;
+                    }
+
+                    reader.readAsDataURL(file);//reads the content of the file and stores 64bit encoded data in a reader.result object when read is complete
+              })
+
+
+        </script>
+
+  </body>
+</html>
